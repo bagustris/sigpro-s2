@@ -14,6 +14,12 @@ rmse = librosa.feature.XXX(XXX, frame_length=XXX, hop_length=XXX)
 zcr = librosa.feature.XXX(x, frame_length=XXX, hop_length=N)
 mfcc = librosa.feature.XXX(x, sr=XXX, n_mfcc=13, n_fft=N, hop_length=S)
 
-
+# plot tiga variabel: rmse, zcr, mfcc
 plt.plot(rmse)
 plt.show()
+
+# concatenate all features 
+# baris: frames
+# kolom: feature
+
+# submit python dan pdf
