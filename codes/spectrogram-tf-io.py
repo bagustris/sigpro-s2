@@ -2,22 +2,39 @@
 # plot stft and spectrogram with tensorflow
 
 import tensorflow as tf
+import tensorflow_io as tfio
 
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
 
+# lay read audio file
+audio = tfio.audio.AudioIOTensor('../lab/1_sampling/speech.wav')
 
+# read as tensor
+audio_tensor = tf.squeeze(audio.to_tensor(), axis=[-1])
 
-# main program to plot
-file_path = '../lab/1_sampling/speech.wav'
-waveform = get_waveform(file_path)
-spectrogram = get_spectrogram(waveform)
-fig, axes = plt.subplots(2, figsize=(12, 8))
-timescale = np.arange(waveform.shape[0])
-axes[0].plot(timescale, waveform.numpy())
-axes[0].set_title('Waveform')
-axes[0].set_xlim([0, len(waveform.numpy())])
-plot_spectrogram(spectrogram.numpy(), axes[1])
-axes[1].set_title('Spectrogram')
-# axes[1].set_xlim([0, len(waveform.numpy())])
+tensor = tf.cast(audio_tensor, tf.float32) / 32768.0
+
+# calculate spectrogram
+spectrogram = tfio.audio.spectrogram(
+    tensor, nfft=512, window=512, stride=256)
+
+# Convert to mel-spectrogram
+mel_spectrogram = tfio.audio.melscale(
+    spectrogram, rate=16000, mels=128, fmin=0, fmax=8000)
+
+# Convert to db scale mel-spectrogram
+dbscale_mel_spectrogram = tfio.audio.dbscale(
+    mel_spectrogram, top_db=80)
+
+plt.figure()
+plt.plot(tensor.numpy())
+plt.figure()
+plt.imshow(tf.math.log(spectrogram).numpy().T, origin='lower')
+plt.figure()
+plt.imshow(dbscale_mel_spectrogram.numpy().T, origin='lower')
+plt.figure()
+plt.imshow(tf.math.log(mel_spectrogram).numpy().T, origin='lower')
+
 plt.show()

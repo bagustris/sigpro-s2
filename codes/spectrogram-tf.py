@@ -34,8 +34,10 @@ def get_spectrogram(waveform):
   # same length
     waveform = tf.cast(waveform, tf.float32)
     equal_length = tf.concat([waveform, zero_padding], 0)
-    spectrogram = tf.signal.stft(
-        equal_length, frame_length=255, frame_step=128)
+    spectrogram = tf.signal.stft(equal_length, 
+                                # fft_length=256, 
+                                frame_length=256, 
+                                frame_step=256)
 
     spectrogram = tf.abs(spectrogram)
     return spectrogram
@@ -56,6 +58,7 @@ def plot_spectrogram(spectrogram, ax):
 file_path = '../lab/1_sampling/speech.wav'
 waveform = get_waveform(file_path)
 spectrogram = get_spectrogram(waveform)
+
 fig, axes = plt.subplots(2, figsize=(12, 8))
 timescale = np.arange(waveform.shape[0])
 axes[0].plot(timescale, waveform.numpy())
@@ -64,4 +67,4 @@ axes[0].set_xlim([0, len(waveform.numpy())])
 plot_spectrogram(spectrogram.numpy(), axes[1])
 axes[1].set_title('Spectrogram')
 # axes[1].set_xlim([0, len(waveform.numpy())])
-plt.show()
+plt.show(block=False)
