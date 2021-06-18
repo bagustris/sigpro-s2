@@ -1,5 +1,5 @@
 #!/usr/bin/env python3.8
-# plot stft and spectrogram with tensorflow
+# plot stft and spectrogram with tensorflow 2.5.0
 
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -36,7 +36,7 @@ def get_spectrogram(waveform):
     equal_length = tf.concat([waveform, zero_padding], 0)
     spectrogram = tf.signal.stft(equal_length, 
                                 # fft_length=256, 
-                                frame_length=256, 
+                                frame_length=512, 
                                 frame_step=256)
 
     spectrogram = tf.abs(spectrogram)

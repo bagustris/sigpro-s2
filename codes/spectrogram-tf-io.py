@@ -1,5 +1,5 @@
 #!/usr/bin/env python3.8
-# plot stft and spectrogram with tensorflow
+# plot stft and spectrogram with tensorflow-io 0.18.0
 
 import tensorflow as tf
 import tensorflow_io as tfio

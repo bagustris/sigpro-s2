@@ -42,7 +42,7 @@ fs, x = wavfile.read('../lab/1_sampling/speech.wav')
 # define window parameters
 frame_length = 512                  # Change this for narrow/wideband
 fft_length = 512
-frame_skip = frame_length//2
+frame_skip = frame_length//2        # hop length
 max_freq = 5000
 
 # calculate each step: enframe, stft, stft2level, and spectrogram

@@ -8,7 +8,7 @@ y, sr = librosa.load('../lab/1_sampling/speech.wav', sr=None)
 fig, ax = plt.subplots()
 
 # define size of window and FFT
-M = 32          # window size, smaller:more resolution
+M = 512         # window size, smaller:more resolution
 N = 512         # fft number
 
 # calculate STFT

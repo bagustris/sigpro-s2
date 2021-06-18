@@ -7,4 +7,4 @@ def plot_spectrogram(S,title):
     S = np.log(S + 1e-4)
     plt.imshow(S,cmap = plt.get_cmap("jet"), interpolation = "nearest")
     plt.title(title)
-    plt.show()
+    # plt.show()
